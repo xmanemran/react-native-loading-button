@@ -17,15 +17,16 @@ export default class LoadingButton extends Component{
             loading: false
         };
         this.defaultLoadingValue = {
-            width: styles.defaultLoadingRoot.width
+            width: new Animated.Value(100)
         }
     }
 
-    defaultLoadingAnimation(){
+    defaultLoadingAnimation(start, end){
+        this.defaultLoadingValue.width.setValue(start)
         Animated.timing(
             this.defaultLoadingValue.width,
             {
-                toValue: 50,
+                toValue: end,
                 duration: 200,
             }
         ).start()
@@ -33,23 +34,23 @@ export default class LoadingButton extends Component{
 
     loadingContent(){
         return (
-            <ActivityIndicator/>
+            <ActivityIndicator color="#FFF"/>
         )
     }
 
     loadingFire(){
         this.setState({loading: true});
-        this.defaultLoadingAnimation();
+        this.defaultLoadingAnimation(100, 40);
         setTimeout(()=>{
+            this.defaultLoadingAnimation(40, 100);
             this.setState({loading: false});
-        }, 10000);
+        }, 1000);
     }
 
     defaultLoadingButton(){
         return (
             <Animated.View style={[styles.defaultLoadingRoot, {width: this.defaultLoadingValue.width}]}>
                 <TouchableOpacity
-                    style={styles.defaultLoadingRoot}
                     onPress={this.loadingFire.bind(this)}
                 >
                     {this.state.loading ? this.loadingContent() : <Text style={styles.defaultLoadingText}>Login</Text>}
