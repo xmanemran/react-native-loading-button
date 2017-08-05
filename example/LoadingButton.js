@@ -27,33 +27,29 @@ export default class LoadingButton extends Component{
             this.defaultLoadingValue.width,
             {
                 toValue: end,
-                duration: 200,
+                duration: this.props.animationDelay,
             }
         ).start()
     }
 
     loadingContent(){
         return (
-            <ActivityIndicator color="#FFF"/>
+            <ActivityIndicator color={this.props.activityIndicatorColor} size={this.props.activityIndicatorSize}/>
         )
     }
 
-    loadingFire(){
-        this.setState({loading: true});
-        this.defaultLoadingAnimation(100, 40);
-        setTimeout(()=>{
-            this.defaultLoadingAnimation(40, 100);
-            this.setState({loading: false});
-        }, 1000);
+    componentWillReceiveProps(nextProps){
+        if(nextProps.isLoading)
+            this.defaultLoadingAnimation(this.props.viewStyle.width, this.props.whenAnimationViewWidth);
+        else
+            this.defaultLoadingAnimation(this.props.whenAnimationViewWidth, this.props.viewStyle.width);
     }
 
     defaultLoadingButton(){
         return (
-            <Animated.View style={[styles.defaultLoadingRoot, {width: this.defaultLoadingValue.width}]}>
-                <TouchableOpacity
-                    onPress={this.loadingFire.bind(this)}
-                >
-                    {this.state.loading ? this.loadingContent() : <Text style={styles.defaultLoadingText}>Login</Text>}
+            <Animated.View style={[this.props.viewStyle, {width: this.defaultLoadingValue.width}]}>
+                <TouchableOpacity onPress={()=>{this.props.onPress()}} style={styles.defaultLoadingTouch}>
+                    {this.props.isLoading ? this.loadingContent() : <Text style={styles.defaultLoadingText}>Login</Text>}
                 </TouchableOpacity>
             </Animated.View>
         )
@@ -68,18 +64,32 @@ export default class LoadingButton extends Component{
     }
 }
 
+LoadingButton.defaultProps = {
+    onPress: ()=>{
+        alert('press');
+    },
+    isLoading: false,
+    activityIndicatorColor: '#FFF',
+    activityIndicatorSize: 'small',
+    viewStyle: {
+        width: 100,
+        height: 30,
+        backgroundColor: '#25CED1',
+        borderRadius: 20
+    },
+    animationDelay: 200,
+    whenAnimationViewWidth: 40
+};
+
 const styles = StyleSheet.create({
     root: {
         width: 100,
         height: 30,
     },
-    defaultLoadingRoot : {
-        width: 100,
-        height: 30,
-        backgroundColor: '#25CED1',
+    defaultLoadingTouch: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20
     },
     defaultLoadingText: {
         color: '#FFF'
