@@ -12,7 +12,7 @@ import {
     View
 } from 'react-native';
 
-import LoadingButton from './LoadingButton';
+import LoadingButton from '../LoadingButton';
 
 export default class example extends Component {
 

@@ -17,7 +17,7 @@ export default class LoadingButton extends Component{
             loading: false
         };
         this.defaultLoadingValue = {
-            width: new Animated.Value(100)
+            width: new Animated.Value(props.viewStyle.width)
         }
     }
 
