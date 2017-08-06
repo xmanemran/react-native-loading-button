@@ -14,10 +14,38 @@ npm install react-native-loading-button --save
 
 ```javascript
 import LoadingButton from 'react-native-loading-button';
-<LoadingButton
-    onPress={this.onPressHandler.bind(this)}
-    isLoading={this.state.isLoading}
-/>
+
+export default class example extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            isLoading: false
+        };
+    }
+
+    onPressHandler(){
+        this.setState({isLoading: true});
+        setTimeout(()=>{
+            this.setState({isLoading: false});
+        }, 1000);
+    }
+
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.welcome}>
+                    Welcome to React Native!
+                </Text>
+                <LoadingButton
+                    onPress={this.onPressHandler.bind(this)}
+                    isLoading={this.state.isLoading}
+                />
+            </View>
+        );
+    }
+}
 ```
 
 ### Props
