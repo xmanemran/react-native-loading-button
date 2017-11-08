@@ -1,6 +1,6 @@
 {
   "name": "react-native-loading-button",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React native button with activity indicator",
   "main": "LoadingButton.js",
   "directories": {
