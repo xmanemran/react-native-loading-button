@@ -62,3 +62,4 @@ export default class example extends Component {
 | animationDelay  | How manny time will tack to animate (number)  | 200 | 
 | whenAnimationViewWidth  | Main view size when animated | 40 | 
 | enableWidthAnimation | Change width when animation | true | 
+| childView | Inner child Component | Text Component (OK)
