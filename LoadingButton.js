@@ -47,7 +47,7 @@ export default class LoadingButton extends Component{
 
     defaultLoadingButton(){
         return (
-            <Animated.View style={[this.props.viewStyle, {width: this.defaultLoadingValue.width}]}>
+            <Animated.View style={[this.props.viewStyle, {width: this.props.enableWidthAnimation ? this.defaultLoadingValue.width || this.props.viewStyle.width}]}>
                 <TouchableOpacity onPress={()=>{this.props.onPress()}} style={styles.defaultLoadingTouch}>
                     {this.props.isLoading ? this.loadingContent() : <Text style={styles.defaultLoadingText}>Login</Text>}
                 </TouchableOpacity>
@@ -78,7 +78,8 @@ LoadingButton.defaultProps = {
         borderRadius: 20
     },
     animationDelay: 200,
-    whenAnimationViewWidth: 40
+    whenAnimationViewWidth: 40,
+    enableWidthAnimation: true
 };
 
 const styles = StyleSheet.create({
