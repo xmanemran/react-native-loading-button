@@ -48,9 +48,10 @@ export default class LoadingButton extends Component{
     defaultLoadingButton(){
         return (
             <Animated.View style={[this.props.viewStyle, {width: this.props.enableWidthAnimation ? this.defaultLoadingValue.width : this.props.viewStyle.width}]}>
-                <TouchableOpacity onPress={()=>{this.props.onPress()}} style={[styles.defaultLoadingTouch, {width: this.props.enableWidthAnimation ? styles.defaultLoadingTouch.width : this.props.viewStyle.width}]}>
-                    {this.props.isLoading ? this.loadingContent() : this.props.childView || <Text style={styles.defaultLoadingText}>Login</Text>}
-                </TouchableOpacity>
+              <TouchableOpacity onPress={()=>{!this.props.isLoading && this.props.onPress()}}
+                              style={[styles.defaultLoadingTouch, {width: this.props.enableWidthAnimation ? styles.defaultLoadingTouch.width : this.props.viewStyle.width}]}>
+              {this.props.isLoading ? this.loadingContent() : this.props.childView || <Text style={styles.defaultLoadingText}>{this.props.title}</Text>}
+             </TouchableOpacity>
             </Animated.View>
         )
     }
@@ -68,6 +69,7 @@ LoadingButton.defaultProps = {
     onPress: ()=>{
         alert('press');
     },
+    title: 'button',
     isLoading: false,
     activityIndicatorColor: '#FFF',
     activityIndicatorSize: 'small',
